@@ -12,14 +12,14 @@ import { Button } from "antd";
 import { useCallback } from "react";
 import { generateId } from "../utils/flow";
 import { NodeWrapper } from "./node-wrapper";
-type NodeData = { condition: string; value: number };
+type NodeData = { condition: string; value: number; validate: boolean };
 type NodeDataProps = Node<NodeData, "label">;
 
 export const ConditionNode = (props: NodeProps<NodeDataProps>) => {
   const { id, data, positionAbsoluteX, positionAbsoluteY, isConnectable } =
     props;
 
-  const { condition, value } = data;
+  const { condition, value, validate = false } = data;
   const { getNodes, setNodes, setEdges, getEdges } = useReactFlow();
 
   const handleAddCondition = useCallback(() => {
@@ -88,8 +88,9 @@ export const ConditionNode = (props: NodeProps<NodeDataProps>) => {
       <Handle type="target" position={Position.Top} style={{ opacity: 0 }} />
       <NodeWrapper
         title={data?.label ?? ""}
-        subTitle={`${condition} ${value}`}
+        subTitle={`${condition} ${(value ?? 0).toLocaleString()}`}
         type="Condition"
+        validate={validate}
       ></NodeWrapper>
       <Handle
         type="source"
@@ -98,23 +99,6 @@ export const ConditionNode = (props: NodeProps<NodeDataProps>) => {
         style={{ opacity: 0 }}
         isConnectable={isConnectable}
       />
-    </>
-  );
-
-  return (
-    <>
-      <div className="shadow-md px-4 py-1 rounded-xl bg-green-300 border-sky-100 border-solid border-[1px]">
-        <p className="text-xs">
-          {condition} {value}
-        </p>
-      </div>
-      {/* <Handle
-        type="source"
-        position={Position.Bottom}
-        id="b"
-        style={{ background: "#000", left: "auto", right: 10, opacity: 0 }}
-        isConnectable={isConnectable}
-      /> */}
     </>
   );
 };

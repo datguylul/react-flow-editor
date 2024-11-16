@@ -32,7 +32,7 @@ export function RunEdge({
       <BaseEdge
         path={edgePath}
         markerEnd={markerEnd}
-        style={{ stroke: "#48BB78", strokeWidth: 1.5 }}
+        style={{ stroke: "#48BB78", strokeWidth: 4 }}
       />
 
       <EdgeLabelRenderer>
